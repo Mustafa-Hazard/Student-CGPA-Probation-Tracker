@@ -142,3 +142,7 @@ vite.config.ts.timestamp-*
 functions/node_modules/
 functions/.env
 functions/*.log
+node_modules/
+.env
+functions/.env
+.firebase/
