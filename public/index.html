@@ -134,7 +134,7 @@
 
         async fetchFilters() {
           try {
-            const response = await fetch('/api/filters');
+            const response = await fetch('http://localhost:3000/api/filters');
             if (!response.ok) throw new Error();
             const data = await response.json();
             this.years = data.years;
@@ -150,7 +150,7 @@
           }
 
           try {
-            const response = await fetch(`/api/probation?year=${this.year}&semester=${this.semester}`);
+            const response = await fetch(`http://localhost:3000/api/probation?year=${this.year}&semester=${this.semester}`);
             if (!response.ok) throw new Error();
             this.students = await response.json();
           } catch (err) {

@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "probation-tracker-642",
     "public": "public",
     "ignore": [
       "firebase.json",
@@ -8,16 +9,9 @@
     ],
     "rewrites": [
       {
-        "source": "/api/**",
-        "function": "api"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }
     ]
-  },
-  "functions": {
-    "source": "functions"
   }
 }
