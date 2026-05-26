@@ -1,0 +1,78 @@
+// Firebase uses functions/server.js for the backend. Edit files inside the functions folder.
+
+// import express from 'express';
+// import pkg from 'pg';
+// import cors from 'cors';
+// import path from 'path';
+// import { fileURLToPath } from 'url';
+
+// const { Pool } = pkg;
+// const app = express();
+// app.use(cors());
+// app.use(express.json());
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// const pool = new Pool({
+//   connectionString: 'postgresql://neondb_owner:npg_9mFIB3dTgZGE@ep-rapid-silence-a8izcvjk-pooler.eastus2.azure.neon.tech/neondb?sslmode=require&channel_binding=require'
+// });
+
+// app.get('/api/probation', async (req, res) => {
+//   const { year, semester } = req.query;
+
+//   const QUERY = `
+//     SELECT 
+//       m.regno AS student_id, 
+//       s.name, 
+//       ROUND(TotalActualGPA / TotalCreditHours, 2) AS cgpa
+//     FROM (
+//       SELECT 
+//         cm.regno, 
+//         r.year, 
+//         r.semester, 
+//         SUM((c.theory + c.lab) * g.gpa) AS TotalActualGPA,
+//         SUM(c.theory + c.lab) AS TotalCreditHours
+//       FROM cmarks cm
+//       JOIN head h ON cm.hid = h.hid
+//       JOIN grade g ON ROUND(cm.marks) BETWEEN g.start AND g."end"
+//       JOIN recap r ON cm.rid = r.rid
+//       JOIN course c ON r.cid = c.cid
+//       WHERE cm.hid = 246 AND r.year = $1 AND r.semester = $2
+//       GROUP BY cm.regno, r.year, r.semester
+//     ) AS m
+//     JOIN student s ON m.regno = s.regno
+//     WHERE ROUND(TotalActualGPA / TotalCreditHours, 2) < 2.0
+//     ORDER BY s.name
+//     ;
+//   `;
+
+//   try {
+//     const result = await pool.query(QUERY, [year, semester]);
+//     res.json(result.rows);
+//   } catch (err) {
+//     console.error('Database error:', err);
+//     res.status(500).json({ error: 'Database error' });
+//   }
+// });
+
+// app.get('/api/filters', async (req, res) => {
+//   try {
+//     const yearsResult = await pool.query('SELECT DISTINCT year FROM recap ORDER BY year');
+//     const semestersResult = await pool.query('SELECT DISTINCT semester FROM recap ORDER BY semester');
+
+//     res.json({
+//       years: yearsResult.rows.map(row => row.year),
+//       semesters: semestersResult.rows.map(row => row.semester)
+//     });
+//   } catch (err) {
+//     console.error('Error fetching filters:', err);
+//     res.status(500).json({ error: 'Failed to fetch filters' });
+//   }
+// });
+
+// const PORT = 3000;
+// app.listen(PORT, () => {
+//   console.log(`Server running at http://localhost:${PORT}`);
+// });
